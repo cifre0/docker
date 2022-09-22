@@ -9,7 +9,6 @@ node {
      stage ('Test image'){
         withDockerContainer("tag1/httpd"){ 
             sh "echo 'hello world'" 
-            sh "curl localhost"
             }
             sh "docker ps"
             }
