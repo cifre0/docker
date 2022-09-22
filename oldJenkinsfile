@@ -7,7 +7,7 @@ node {
         app = docker.build("tag1/httpd")
      }
      stage ('Test image'){
-        withDockerContainer("tag1/httpd"){ 
+        withDockerContainer(args: '--rm',"tag1/httpd"){ 
             sh "echo 'hello world'" 
             }
             sh "docker ps"
