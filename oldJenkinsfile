@@ -7,6 +7,6 @@ node {
         app = docker.build("tag1/httpd")
      }
      stage ('Test image'){
-        withDockerContainer(image:'tag1/httpd')
+        withDockerContainer("tag1/nginx"){ sh "echo 'hello world'" }
             }
 }
