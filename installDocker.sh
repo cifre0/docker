@@ -4,6 +4,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y
 
+### Uninstall old-version
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
 ### Install using the repository
 ### Set up the repository
 apt-get install -y ca-certificates curl gnupg lsb-release
