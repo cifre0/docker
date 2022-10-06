@@ -4,8 +4,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y
 
-### Uninstall old-version
-sudo apt-get remove docker docker-engine docker.io containerd runc
+### Uninstall old version
+#apt-get remove -y docker docker-engine docker.io containerd runc
 
 ### Install using the repository
 ### Set up the repository
@@ -24,8 +24,9 @@ apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containe
 ### add docker to root
 USER=$(cat /etc/passwd | grep 1000 | awk -F ':' ' {print $1}')
 groupadd docker
-usermod -aG docker $USER
+usermod --append --groups docker "$USER"
 newgrp docker
+printf '\nDocker installed successfully\n\n'
 
 ### enable docker
 systemctl enable docker.service
