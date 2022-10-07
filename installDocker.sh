@@ -23,7 +23,7 @@ apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containe
 
 ### add docker to root
 USER=$(cat /etc/passwd | grep 1000 | awk -F ':' ' {print $1}')
-groupadd docker
+if [ $(getent group | grep docker) ];then :;else groupadd docker ; fi 
 usermod --append --groups docker "$USER"
 newgrp docker
 printf '\nDocker installed successfully\n\n'
