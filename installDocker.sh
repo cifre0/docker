@@ -18,8 +18,9 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 ### Install Docker Engine
 apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-VERSION_STRING=$(apt-cache madison docker-ce | cut -d"|" -f2 | head -n1)
-apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-compose-plugin
+#VERSION_STRING=$(apt-cache madison docker-ce | cut -d"|" -f2 | head -n1)
+#apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-compose-plugin
+for i in $(seq $(apt-cache madison docker-ce | cut -d"|" -f2 | wc -l)); do apt-get install docker-ce=$(apt-cache madison docker-ce | cut -d"|" -f2 | sed -n $i\p) docker-ce-cli=$(apt-cache madison docker-ce | cut -d"|" -f2 | sed -n $i\p) containerd.io docker-compose-plugin && if [[ $? == 0 ]]; then break; fi; done
 
 ### add docker to root
 USER=$(cat /etc/passwd | grep 1000 | awk -F ':' ' {print $1}')
