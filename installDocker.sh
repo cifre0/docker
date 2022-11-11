@@ -23,9 +23,9 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 for i in $(seq $(apt-cache madison docker-ce | cut -d"|" -f2 | wc -l)); do apt-get install docker-ce=$(apt-cache madison docker-ce | cut -d"|" -f2 | sed -n $i\p) docker-ce-cli=$(apt-cache madison docker-ce | cut -d"|" -f2 | sed -n $i\p) containerd.io docker-compose-plugin && if [[ $? == 0 ]]; then break; fi; done
 
 ### add docker to root
-USER=$(cat /etc/passwd | grep 1000 | awk -F ':' ' {print $1}')
+user=$(cat /etc/passwd | grep 1000 | awk -F ':' ' {print $1}')
 if [ $(getent group | grep docker) ];then :;else groupadd docker ; fi 
-usermod --append --groups docker "$USER"
+usermod --append --groups docker "$user"
 newgrp docker
 printf '\nDocker installed successfully\n\n'
 
